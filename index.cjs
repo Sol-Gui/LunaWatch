@@ -19,8 +19,18 @@ app.get('/', (req, res)=>{
     res.render('home');
 });
 
+
+
+app.get('/login/sign-up', (req, res)=>{
+    res.render('login', {method: 1});
+});
+
+app.get('/login/sign-in', (req, res)=>{
+    res.render('login', {method: 2});
+});
+
 app.get('/login', (req, res)=>{
-    res.render('login');
+    res.render('login', {method: 1});
 });
 
 app.get('/r/:subreddit', (req, res)=>{
@@ -63,10 +73,17 @@ app.get('/tradingview', (req, res) => {
     res.render('tradingview');
 })
 
+app.get('/solana', (req, res) => {
+    res.render('blockchains/solana');
+})
+
+app.get('/general', (req, res) => {
+    res.render('blockchains/general');
+})
+
 app.get('*', (req, res)=>{
     res.render('notfound');
 });
-
 
 // app.use((req, res)=>{
 //     res.sendFile(path.join(__dirname, '/home.html'));

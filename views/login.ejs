@@ -2,34 +2,84 @@
 
 <head>
     <link rel='stylesheet' type='text/css' href='/css/login-page.css'>
+    <script src="/js/toggle_button.cjs"></script>
 </head>
 
 <body>
 <div class="home-body">
     <div id="login-container">
-
-        <div id="change-input-container">
-            <div id="change-input">
-                <div id="blue-div">
-                    <img src="../img/lunawatch-bg-image.png">
-                    <button type="button" class="btn btn-primary">Sign In</button>
+        <% if (method == 1) { %>
+            <div id="change-input-container">
+                <div id="change-input">
+                    <div id="blue-div">
+                        <h1>Welcome!</h1>
+                        <h2 id="text">Login with your credentials for full access</h2>
+                        <button type="button" class="btn btn-primary" id="toggle-button" >Sign In</button>
+                    </div>
                 </div>
             </div>
+        <div id="toggle-sign-up">
+            <form action="/cadastro" method="POST" id="sign-up-form">
+                <h1 id="Sign-up-title">Sign Up</h1>
+                <p>Email</p>
+                <input type="email" placeholder="Email..." class="sign-up-inputs" required name="email" autocomplete="username">
+                <p>Password</p>
+                <input type="password" placeholder="Password..." class="sign-up-inputs" required minlength="6" name="password" autocomplete="new-password">
+                <br>
+                <input type="submit" class="sign-up-input" id="sign-up-submit">
+                <br>
+            </form>
         </div>
-        
-        <form action="/cadastro" method="POST" id="sign-up-form">
 
-            <h1 id="Sign-up-title">Sign Up</h1>
+        <div id="toggle-sign-in" class="hidden">
+            <form action="/cadastro" method="POST" id="sign-up-form">
+                <h1 id="Sign-up-title">Sign In</h1>
+                <p>Email</p>
+                <input type="email" placeholder="Email..." class="sign-up-inputs" required name="email" autocomplete="username">
+                <p>Password</p>
+                <input type="password" placeholder="Password..." class="sign-up-inputs" required minlength="6" name="password" autocomplete="new-password">
+                <br>
+                <input type="submit" class="sign-up-input" id="sign-up-submit">
+                <br>
+            </form>
+        </div>
+        <% } else { %>
+            <div id="change-input-container">
+                <div id="change-input">
+                    <div id="blue-div">
+                        <h1>Welcome!</h1>
+                        <h2 id="text">Register yourself for more useful tools!</h2>
+                        <button type="button" class="btn btn-primary" id="toggle-button" >Sign In</button>
+                    </div>
+                </div>
+            </div>
+            <div id="toggle-sign-up" class="hidden">
+                <form action="/cadastro" method="POST" id="sign-up-form">
+                    <h1 id="Sign-up-title">Sign Up</h1>
+                    <p>Email</p>
+                    <input type="email" placeholder="Email..." class="sign-up-inputs" required name="email" autocomplete="username">
+                    <p>Password</p>
+                    <input type="password" placeholder="Password..." class="sign-up-inputs" required minlength="6" name="password" autocomplete="new-password">
+                    <br>
+                    <input type="submit" class="sign-up-input" id="sign-up-submit">
+                    <br>
+                </form>
+            </div>
+    
+            <div id="toggle-sign-in">
+                <form action="/cadastro" method="POST" id="sign-up-form">
+                    <h1 id="Sign-up-title">Sign In</h1>
+                    <p>Email</p>
+                    <input type="email" placeholder="Email..." class="sign-up-inputs" required name="email" autocomplete="username">
+                    <p>Password</p>
+                    <input type="password" placeholder="Password..." class="sign-up-inputs" required minlength="6" name="password" autocomplete="new-password">
+                    <br>
+                    <input type="submit" class="sign-up-input" id="sign-up-submit">
+                    <br>
+                </form>
+            </div>
+        <% } %>
 
-            <p>Email</p>
-            <input type="email" placeholder="Email..." class="sign-up-inputs" required name="email" autocomplete="username" required>
-
-            <p>Password</p>
-            <input type="password" placeholder="Password..." class="sign-up-inputs" required minlength="6" name="password" autocomplete="new-password" required><br>
-
-            <input type="submit" class="sign-up-input" id="sign-up-submit"><br>
-        
-        </form>
             <div class="buttons">
                 <button id="phantom-button" onclick="console.log('Oi')">
                     <img 

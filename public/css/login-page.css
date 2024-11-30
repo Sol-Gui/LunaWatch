@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
+
 body {
   background-color: rgb(91,88,89);
   color: white;
@@ -38,7 +40,7 @@ and (min-width : 1224px) {
     height: 45em;
     max-width: 80vw;
     max-height: 80vh;
-    background-color: #202324;
+    background-color: #18091b;
     border-radius: 0.5em;
   }
   
@@ -80,7 +82,7 @@ and (min-width : 1224px) {
     left: 25%;
     width: 137%;
     height: 100%;
-    background: linear-gradient(to right, #FFFFFF, #22152F);
+    background: linear-gradient(to right, #02c4ff,  #29133f);
     border-radius: 25%;
     border-top-right-radius: 0.8em;
     border-bottom-right-radius: 0.8em;
@@ -106,7 +108,7 @@ and (min-width : 1224px) {
     border-radius: 0.8em;
     min-height: 2em;
     border: none;
-    background-color: grey;
+    background-color: #512da8;
     color: white;
     border-radius: 0.8em;
     height: 1em;
@@ -123,21 +125,6 @@ and (min-width : 1224px) {
     flex-direction: column;
   }
 
-  .buttons button img { 
-    border-image: auto;
-    width: 3em;
-    height: 3em;
-  }
-
-  #blue-div img {
-    position: absolute;
-    left: 5em;
-    top: 3.5em;
-    max-width: 68.5%;
-    max-height: 55%;
-    border-radius: 100%;
-  }
-
   .buttons button {
     margin-top: 2em;
     background: transparent;
@@ -149,5 +136,26 @@ and (min-width : 1224px) {
     position:absolute;
     top: 70%;
     left: 10%;
+  }
+
+  #blue-div {
+    color: wheat;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: bold;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    height: 100%;
+  }
+
+  #toggle-sign-in.hidden {
+    display: none;
+    visibility:hidden;
+  }
+  #toggle-sign-up.hidden {
+    display: none;
+    visibility: hidden;
   }
 }

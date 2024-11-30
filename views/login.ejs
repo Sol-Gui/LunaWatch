@@ -1,0 +1,55 @@
+<%- include('partials/header')  %>
+
+<head>
+    <link rel='stylesheet' type='text/css' href='/css/login-page.css'>
+</head>
+
+<body>
+<div class="home-body">
+    <div id="login-container">
+
+        <div id="change-input-container">
+            <div id="change-input">
+                <div id="blue-div">
+                    <img src="../img/lunawatch-bg-image.png">
+                    <button type="button" class="btn btn-primary">Sign In</button>
+                </div>
+            </div>
+        </div>
+        
+        <form action="/cadastro" method="POST" id="sign-up-form">
+
+            <h1 id="Sign-up-title">Sign Up</h1>
+
+            <p>Email</p>
+            <input type="email" placeholder="Email..." class="sign-up-inputs" required name="email" autocomplete="username" required>
+
+            <p>Password</p>
+            <input type="password" placeholder="Password..." class="sign-up-inputs" required minlength="6" name="password" autocomplete="new-password" required><br>
+
+            <input type="submit" class="sign-up-input" id="sign-up-submit"><br>
+        
+        </form>
+            <div class="buttons">
+                <button id="phantom-button" onclick="console.log('Oi')">
+                    <img 
+                    src="../img/phantom-icon.png" 
+                    alt="MetaMask" 
+                    class="phantom-icon"
+                    >   
+                </button>
+                <button id="google-button">
+                    <img 
+                    src="../img/google-icon.png" 
+                    alt="google" 
+                    class="google-icon"
+                    >   
+                </button>
+            </div>
+        
+    </div>
+</div>
+
+
+
+<%- include('partials/footer')  %>

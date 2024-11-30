@@ -1,0 +1,7 @@
+node_modules/
+melhorias.txt/
+.vs_code/
+package.json/
+package-lock.json/
+.git/
+.gitignore

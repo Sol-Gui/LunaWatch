@@ -1,0 +1,54 @@
+<%- include('partials/header')  %>
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/trading_page.css">
+    <title>BTC EXAMPLE</title>
+</head>
+
+<body>
+
+    <!-- TradingView Widget BEGIN -->
+    <div class="tradingview-widget-container">
+        <div id="tradingview_Si"></div>
+        <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+        <script type="text/javascript">
+            new TradingView.widget(
+                {
+                    "autosize": true,
+                    "symbol": "BINANCE:BTCUSDT",
+                    "interval": "D",
+                    "timezone": "Etc/UTC",
+                    "theme": "dark",
+                    "style": "2",
+                    "locale": "en",
+                    "enable_publishing": false,
+                    "withdateranges": true,
+                    "hide_side_toolbar": false,
+                    "watchlist": [],
+                    "details": true,
+                    "calendar": true,
+                    "studies": [
+                        "STD;EMA"
+                    ],
+                    "show_popup_button": true,
+                    "popup_width": "1000",
+                    "popup_height": "650",
+                    "container_id": "tradingview_Si"
+                }
+            );
+        </script>
+    </div>
+    <!-- TradingView Widget END -->
+
+
+
+</body>
+
+</html>
+
+<%- include('partials/footer')  %>

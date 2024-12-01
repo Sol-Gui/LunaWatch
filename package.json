@@ -12,11 +12,16 @@
   "dependencies": {
     "@project-serum/anchor": "^0.26.0",
     "@solana/web3.js": "^1.95.5",
+    "bcrypt": "^5.1.1",
     "bs58": "^6.0.0",
     "cross-fetch": "^4.0.0",
+    "dotenv": "^16.4.5",
     "ejs": "^3.1.10",
     "express": "^4.21.1",
+    "jsonwebtoken": "^9.0.2",
+    "mysql2": "^3.11.5",
     "process": "^0.11.10",
-    "solana": "^2.8.0"
+    "solana": "^2.8.0",
+    "validator": "^13.12.0"
   }
 }

@@ -19,7 +19,7 @@
                 </div>
             </div>
         <div id="toggle-sign-up">
-            <form action="/cadastro" method="POST" class="sign-form">
+            <form action="/login/sign-up" method="POST" class="sign-form" id="sign-up-form">
                 <h1 id="Sign-title">Sign Up</h1>
                 <p>Email</p>
                 <input type="email" placeholder="Email..." class="sign-inputs" required name="email" autocomplete="username">
@@ -32,7 +32,7 @@
         </div>
 
         <div id="toggle-sign-in" class="hidden">
-            <form action="/cadastro" method="POST" class="sign-form">
+            <form action="/login/sign-in" method="POST" class="sign-form" id="sign-in-form">
                 <h1 id="Sign-title">Sign In</h1>
                 <p>Email</p>
                 <input type="email" placeholder="Email..." class="sign-inputs" required name="email" autocomplete="username">
@@ -54,7 +54,7 @@
                 </div>
             </div>
             <div id="toggle-sign-up" class="hidden">
-                <form action="/cadastro" method="POST" class="sign-form">
+                <form action="/login/sign-up" method="POST" class="sign-form" id="sign-up-form">
                     <h1 id="Sign-title">Sign Up</h1>
                     <p>Email</p>
                     <input type="email" placeholder="Email..." class="sign-inputs" required name="email" autocomplete="username">
@@ -67,7 +67,7 @@
             </div>
     
             <div id="toggle-sign-in">
-                <form action="/cadastro" method="POST" class="sign-form">
+                <form action="/login/sign-in" method="POST" class="sign-form" id="sign-in-form">
                     <h1 id="Sign-title">Sign In</h1>
                     <p>Email</p>
                     <input type="email" placeholder="Email..." class="sign-inputs" required name="email" autocomplete="username">
@@ -99,7 +99,6 @@
         
     </div>
 </div>
-
-
+<script src="/js/redirect.cjs"></script>
 
 <%- include('partials/footer')  %>

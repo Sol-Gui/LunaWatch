@@ -3,3 +3,4 @@ melhorias.txt
 *.vscode/
 .git/
 .gitignore
+.env

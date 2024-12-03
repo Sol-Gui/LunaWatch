@@ -1,7 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
+
 body {
   padding-top: 80px;
+  font-family: 'Montserrat';
+  background-color: rgb(91,88,89);
 }
 
 #login-btn {
   color: rgb(132, 216, 255);
+}
+
+nav {
+  font-family: Verdana;
 }

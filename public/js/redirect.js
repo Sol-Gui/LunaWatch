@@ -1,4 +1,4 @@
-document.getElementById('sign-up-form').addEventListener('submit', async (event) => {
+document.querySelector('.sign-form').addEventListener('submit', async (event) => {
   event.preventDefault();
 
   const email = document.querySelector('input[type="email"]').value;
@@ -20,8 +20,10 @@ document.getElementById('sign-up-form').addEventListener('submit', async (event)
       return;
   }
 
+  const isSignUp = event.target.id === 'sign-up-form';
+
   try {
-      const response = await fetch('/login/sign-up', {
+      const response = await fetch(`/login/${isSignUp ? 'sign-up' : 'sign-in'}`, {
           method: 'POST',
           headers: {
               'Content-Type': 'application/json',

@@ -1,9 +1,9 @@
 const express = require('express');
 const path = require('path');
-const jwt = require('jsonwebtoken');
-const validator = require('validator');
-const { fetch_price_jupiter } = require('./public/js/prices/jupiter.js');
-const { connectToDatabase, createUser  } = require('./public/js/database.js');
+const cookieParser = require('cookie-parser');
+const { connectToDatabase } = require('./public/js/database/database.js');
+const { Login, Solana } = require('./controllers/index.js');
+
 
 const app = express();
 const port = 80;
@@ -15,6 +15,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
+
+app.use(cookieParser());
 
 connectToDatabase();
 
@@ -39,54 +41,15 @@ app.get('/login', (req, res)=>{
 });
 
 
-app.post('/login/sign-in', (req, res)=>{
-    const email = req.body.email;
-    const password = req.body.password;
+app.post('/login/sign-in', Login.loginUser)
 
-    res.send({email, password});
+app.post('/login/sign-up', Login.registerUser);
+
+app.get('/protected', Login.checkToken, (req, res) => {
+    res.send({ message: "Acesso permitido!" });
 });
 
-
-app.post('/login/sign-up', async (req, res)=>{
-    try {
-        const { email, password } = req.body;
-
-        if (!email || !password) {
-            return res.status(400).send({ error: 'Email e senha são obrigatórios' });
-        } else if (password.length < 6) {
-            return res.status(400).send({ error: 'Senha muito curta!'});
-        } else if (!validator.isEmail(email)) {
-            return res.status(400).send({ error: 'Email invalido!'});
-        }
-
-        const userId = await createUser(email, password);
-
-        res.status(201).send({
-            success: true,
-            message: 'Usuário registrado com sucesso!',
-            userId,
-        });
-    } catch (err) {
-        res.status(500).send({
-            error: 'Ocorreu um erro ao processar sua solicitação.',
-        });
-    }
-});
-
-
-app.get('/solana/:ca', async (req, res)=>{
-
-    let ca = req.params.ca;
-
-    try {
-        const result = await fetch_price_jupiter(ca);
-
-        res.render('token_pages/token_page_sol', { token: result });
-    } catch (error) {
-        console.error('Error fetching price:', error);
-        res.status(500).send('Error fetching price');
-    }
-});
+app.get('/solana/:ca', Solana.pricePage);
 
 
 app.get('/tradingview', (req, res) => {

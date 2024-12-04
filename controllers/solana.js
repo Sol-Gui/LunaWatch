@@ -1,5 +1,3 @@
-// Fetching price through Jupiter API
-
 const { Connection, PublicKey } = require('@solana/web3.js');
 const fetch = require('cross-fetch');
 
@@ -25,5 +23,18 @@ https://quote-api.jup.ag/v6/quote?inputMint=${contract_address}\
     
     return quoteResponse.outAmount/10**USDC_DECIMALS;
 }
- 
-module.exports = { fetch_price_jupiter }
+
+async function pricePage(req, res) {
+    let ca = req.params.ca;
+
+    try {
+        const result = await fetch_price_jupiter(ca);
+
+        res.render('token_pages/token_page_sol', { token: result });
+    } catch (error) {
+        console.error('Error fetching price:', error);
+        res.status(500).send('Error fetching price');
+    }
+}
+
+module.exports = { fetch_price_jupiter, pricePage }

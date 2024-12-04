@@ -13,6 +13,8 @@
     "@solana/web3.js": "^1.95.5",
     "bcrypt": "^5.1.1",
     "bs58": "^6.0.0",
+    "cookie": "^1.0.2",
+    "cookie-parser": "^1.4.7",
     "cross-fetch": "^4.0.0",
     "dotenv": "^16.4.5",
     "ejs": "^3.1.10",

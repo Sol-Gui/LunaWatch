@@ -36,7 +36,9 @@ function checkToken(req, res, next) {
     const token = req.cookies.jwtToken;
 
     if (!token) {
-        return res.status(401).send({ error: "O Token é inválido!" });
+        res.locals.isAuthenticated = false;
+        next();
+        return;
     }
 
     try {
@@ -44,9 +46,12 @@ function checkToken(req, res, next) {
         
         jwt.verify(token, secret);
 
+        res.locals.isAuthenticated = true
+
         next();
     } catch (err) {
-        res.status(400).send({ error: "O Token é inválido!" });
+        res.locals.isAuthenticated = false;
+        next();
     }
 }
 
@@ -56,7 +61,7 @@ async function loginUser(req, res) {
         const findId = await findInDatabase('id', 'users', 'email', email)
 
         if (!findId[0][0]) {
-            return res.status(401).send({ error: 'Email não cadastrado!' });
+            return res.status(400).send({ error: 'Email não cadastrado!' });
         } else {
             const id = findId[0][0].id
             const pass = await findInDatabase('password', 'users', 'id', id);
@@ -69,7 +74,7 @@ async function loginUser(req, res) {
                     const httpOnlyCookie = true;
                     const cookieOptions = {
                         secure: secureCookie,
-                        maxAge: 60 * 60 * 24 * 7,
+                        maxAge: 86400 * 7, // 86400 * 7 = 7 dias
                         path: '/',
                         httpOnly: httpOnlyCookie,
                     };
@@ -85,7 +90,6 @@ async function loginUser(req, res) {
                         message: 'Usuário logado com sucesso!',
                     });
                 } else {
-                  // response is OutgoingMessage object that server response http request
                   return res.status(401).send({ error: 'Senha Incorreta!' });
                 }
               });
@@ -98,4 +102,4 @@ async function loginUser(req, res) {
 }
 
 
-module.exports = { registerUser, loginUser, checkToken}
+module.exports = { registerUser, loginUser, checkToken }

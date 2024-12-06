@@ -18,6 +18,8 @@ app.set('views', path.join(__dirname, 'views'));
 
 app.use(cookieParser());
 
+app.use(Login.checkToken);
+
 connectToDatabase();
 
 
@@ -45,7 +47,7 @@ app.post('/login/sign-in', Login.loginUser)
 
 app.post('/login/sign-up', Login.registerUser);
 
-app.get('/protected', Login.checkToken, (req, res) => {
+app.get('/protected', (req, res) => {
     res.send({ message: "Acesso permitido!" });
 });
 

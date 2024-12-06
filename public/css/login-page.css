@@ -26,7 +26,7 @@ and (min-width : 1224px) {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 70em;
+    width: 73em;
     padding-right: 25em;
     height: 45em;
     background-color: #18091b;
@@ -65,7 +65,7 @@ and (min-width : 1224px) {
   #blue-div {
     position: absolute;
     top: 0;
-    left: 25%;
+    left: 26%;
     width: 137%;
     height: 100%;
     background: linear-gradient(to right, #0a7292,  #2b0e47);
@@ -148,4 +148,68 @@ and (min-width : 1224px) {
     transition: opacity 2s ease;
   }
 
+  .arrow {
+    cursor: pointer;
+    height: 60px;
+    left: 50%;
+    position: absolute;
+    top: 50%;
+    transform: translateX(-1100%) translateY(-500%) rotate(180deg);  
+    transition: transform 0.1s;
+    width: 50px;
+  }
+  
+  .arrow-top, .arrow-bottom {
+    background-color: #FFFFFF;
+    height: 4px;
+    left: -5px;
+    position: absolute;
+    top: 50%;
+    width: 100%;
+  }
+  
+  .arrow-top:after, .arrow-bottom:after {
+    background-color: #fff;
+    content: "";
+    height: 100%;
+    position: absolute;
+    top: 0;
+    transition: all 0.15s;
+  }
+  
+  .arrow-top {
+    transform: rotate(45deg);
+    transform-origin: bottom right;
+  }
+  
+  .arrow-top:after {
+    left: 100%;
+    right: 0;
+    transition-delay: 0s;
+  }
+  
+  .arrow-bottom {
+    transform: rotate(-45deg);
+    transform-origin: top right;
+  }
+  
+  .arrow-bottom:after {
+    left: 0;
+    right: 100%;
+    transition-delay: 0.15s;
+  }
+  
+  .arrow:hover .arrow-top:after {
+    left: 0;
+    transition-delay: 0.15s;
+  }
+  
+  .arrow:hover .arrow-bottom:after {
+    right: 0;
+    transition-delay: 0s;
+  }
+  
+  .arrow:active {
+    transform: translateX(-1100%) translateY(-500%) rotate(180deg) scale(1.25 );  
+  }
 }

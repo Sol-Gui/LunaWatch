@@ -69,16 +69,3 @@ toggleButton.addEventListener("click", () => {
 backButton.addEventListener("click", () => {
   window.location.href = '/';
 });
-
-const mediaQuery = window.matchMedia("(max-width: 1224px)");
-
-function handleMediaQueryChange(event) {
-  if (event.matches) {
-    console.log("Screen width is 1224px or less");
-  } else {
-    console.log("Screen width is 1224px or more");
-  }
-}
-mediaQuery.addEventListener("change", handleMediaQueryChange);
-
-handleMediaQueryChange(mediaQuery);

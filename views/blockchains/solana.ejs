@@ -2,10 +2,20 @@
 
 <head>
     <link rel='stylesheet' type='text/css' href='/css/home.css'>
+    <link rel='stylesheet' type='text/css' href='/css/solana-page.css'>
 </head>
 
-<h1>Solana</h1>
+<h1 id="title">Solana</h1>
 
+<div class="container">
+    <% Tokens.forEach(function(token) { %>
+        <div class="token-container">
+            <h1><%= token.acronym %></h1>
+            <h2><%= token.name %></h2>
+            <h3><%= token.priceUsd %></h3>
+            <h5><%= token.ca %></h5>
+        </div>
+    <% }); %>
 </div>
 
 

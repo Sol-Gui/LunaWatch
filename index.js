@@ -6,7 +6,7 @@ const { Login, Solana } = require('./controllers/index.js');
 
 
 const app = express();
-const port = 3000;
+const port = 80;
 
 app.use(express.urlencoded({extended: true}));
 app.use(express.json());
@@ -43,24 +43,25 @@ app.get('/login', (req, res)=>{
 });
 
 
-app.post('/login/sign-in', Login.loginUser)
-
-app.post('/login/sign-up', Login.registerUser);
-
 app.get('/protected', (req, res) => {
     res.send({ message: "Acesso permitido!" });
 });
 
-app.get('/solana/:ca', Solana.pricePage);
+
+app.post('/login/sign-in', Login.loginUser)
+
+
+app.post('/login/sign-up', Login.registerUser);
+
+
+app.get(['/solana/:pg', '/solana'], Solana.tokensPage)
+
+
+app.get('/solana/token/:ca', Solana.pricePage);
 
 
 app.get('/tradingview', (req, res) => {
     res.render('tradingview');
-})
-
-
-app.get('/solana', (req, res) => {
-    res.render('blockchains/solana');
 })
 
 

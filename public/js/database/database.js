@@ -37,15 +37,9 @@ async function createUser(email, password) {
   return result.insertId;
 }
 
-async function findInDatabase(select, from, where, info) {
+async function QueryDatabase(query, params) {
   try {
-    const sql = select === "*"
-      ? `SELECT * FROM ?? WHERE ?? = ?`
-      : `SELECT ?? FROM ?? WHERE ?? = ?`;
-    
-    const params = select === "*" ? [from, where, info] : [select, from, where, info];
-    
-    const result = await db.query(sql, params);
+    const result = await db.query(query, params);
     return result;
   } catch (error) {
     throw error;
@@ -53,4 +47,4 @@ async function findInDatabase(select, from, where, info) {
 }
 
 
-module.exports = { connectToDatabase, createUser, findInDatabase, hashedPassword}
+module.exports = { connectToDatabase, createUser, QueryDatabase, hashedPassword}

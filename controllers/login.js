@@ -1,5 +1,5 @@
 const validator = require('validator');
-const { createUser, findInDatabase } = require('../public/js/database/database.js')
+const { createUser, QueryDatabase } = require('../public/js/database/database.js')
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const cookie = require('cookie');
@@ -58,13 +58,13 @@ function checkToken(req, res, next) {
 async function loginUser(req, res) {
     try {
         const { email, password } = req.body;
-        const findId = await findInDatabase('id', 'users', 'email', email)
+        const findId = await QueryDatabase('SELECT id FROM users WHERE email = ?', [email])
 
         if (!findId[0][0]) {
             return res.status(400).send({ error: 'Email não cadastrado!' });
         } else {
             const id = findId[0][0].id
-            const pass = await findInDatabase('password', 'users', 'id', id);
+            const pass = await QueryDatabase('SELECT password FROM users WHERE id = ?', [id]);
             bcrypt.compare(password, pass[0][0].password, function(err, result) {
                 if (err){
                   throw err;

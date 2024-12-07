@@ -17,7 +17,11 @@ CREATE TABLE crypto_sol (
   id BIGINT AUTO_INCREMENT PRIMARY KEY
 );
 
-# INSERT INTO crypto_sol (ca, name, acronym) VALUES ("B", "BB", "BBB");
+INSERT INTO crypto_sol (ca, name, acronym) VALUES ("34a8ALsPmbWxp7D3bQ6erERrCLz1ahr6u6o66Udmpump", "Pesto the Baby King Penguin", "PESTO");
+INSERT INTO crypto_sol (ca, name, acronym) VALUES ("3B5wuUrMEi5yATD7on46hKfej3pfmd7t1RKgrsN3pump", "BILLY", "BILLY");
+INSERT INTO crypto_sol (ca, name, acronym) VALUES ("8Sk2EJ9oo25b7Mmf4qd5gJw6z3738AXvAbkuSSpQpump", "WAWA CAT", "WAWA");
+INSERT INTO crypto_sol (ca, name, acronym) VALUES ("7RrLheV7dSecVka3MfjYb4Wa6Z6uegNyzhpFeERsfFZP", "Retardia", "Retardia");
+INSERT INTO crypto_sol (ca, name, acronym) VALUES ("Df6yfrKC8kZE3KNkrHERKzAetSxbrWeniQfyJY4Jpump", "Just a chill guy", "CHILLGUY");
 
 CREATE TABLE portfolio (
   user_id BIGINT NOT NULL,

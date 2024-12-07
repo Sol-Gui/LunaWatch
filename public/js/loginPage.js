@@ -1,7 +1,3 @@
-
-
-
-
 const backButton = document.getElementById("backArrow");
 const buttons = document.querySelector(".buttons");
 const blueDiv = document.getElementById("blue-div");

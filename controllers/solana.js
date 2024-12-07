@@ -1,5 +1,6 @@
 const { Connection, PublicKey } = require('@solana/web3.js');
 const fetch = require('cross-fetch');
+const { findInDatabase } = require('../public/js/database/database.js')
 
 const USDC_DECIMALS = 6;
 const connection = new Connection('https://api.mainnet-beta.solana.com');

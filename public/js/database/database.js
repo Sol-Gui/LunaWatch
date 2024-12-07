@@ -38,15 +38,14 @@ async function createUser(email, password) {
 }
 
 async function findInDatabase(select, from, where, info) {
-  let result;
   try {
-    if (select === "*") {
-      const sql = `SELECT * FROM ?? WHERE ?? = ?`;
-      result = await db.query(sql, [from, where, info]);
-    } else {
-      const sql = `SELECT ?? FROM ?? WHERE ?? = ?`;
-      result = await db.query(sql, [select, from, where, info]);
-    }
+    const sql = select === "*"
+      ? `SELECT * FROM ?? WHERE ?? = ?`
+      : `SELECT ?? FROM ?? WHERE ?? = ?`;
+    
+    const params = select === "*" ? [from, where, info] : [select, from, where, info];
+    
+    const result = await db.query(sql, params);
     return result;
   } catch (error) {
     throw error;

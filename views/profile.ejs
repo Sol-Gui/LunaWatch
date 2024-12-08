@@ -1,0 +1,23 @@
+<%- include('partials/header')  %>
+
+<head>
+    <link rel='stylesheet' type='text/css' href='/css/profile.css'>
+    <link rel='stylesheet' type='text/css' href='/css/portfolio.css'>
+    <link rel='stylesheet' type='text/css' href='/css/profile-page.css'>
+</head>
+
+<div class="main-container">
+    <div class="profile-container">
+        <h1> Hello, <%= userData.name %> </h1>
+        <h4> <%= userData.email %> </h4>
+        <img width="200em" height="200em" src= <%= userData.image %> >
+    </div>
+
+    <div class="portfolio-container">
+
+
+    </div>
+</div>
+
+
+<%- include('partials/footer')  %>

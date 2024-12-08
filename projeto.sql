@@ -7,6 +7,8 @@ DROP TABLE portfolio;
 CREATE TABLE users (
   email VARCHAR(50) NOT NULL UNIQUE,
   password VARCHAR(60) NOT NULL,
+  image VARCHAR(100),
+  name VARCHAR(50) NOT NULL DEFAULT "Lunar User",
   id BIGINT AUTO_INCREMENT PRIMARY KEY
 );
 
@@ -23,6 +25,8 @@ INSERT INTO crypto_sol (ca, name, acronym) VALUES ("8Sk2EJ9oo25b7Mmf4qd5gJw6z373
 INSERT INTO crypto_sol (ca, name, acronym) VALUES ("7RrLheV7dSecVka3MfjYb4Wa6Z6uegNyzhpFeERsfFZP", "Retardia", "Retardia");
 INSERT INTO crypto_sol (ca, name, acronym) VALUES ("Df6yfrKC8kZE3KNkrHERKzAetSxbrWeniQfyJY4Jpump", "Just a chill guy", "CHILLGUY");
 
+INSERT INTO crypto_sol (ca, name, acronym) VALUES ("9d24jNVbvHQH3pCB1ZzxRjpFuVV4j1MMJDU3SPxQpump", "AA", "AAA");
+
 CREATE TABLE portfolio (
   user_id BIGINT NOT NULL,
   crypto_id BIGINT NOT NULL,
@@ -32,7 +36,8 @@ CREATE TABLE portfolio (
   PRIMARY KEY (user_id, crypto_id)
 );
 
-# INSERT INTO portfolio (user_id, crypto_id, quantity) VALUES (1, 3, 100)
+SELECT name FROM crypto_sol WHERE id = 4;
+INSERT INTO portfolio (user_id, crypto_id, quantity) VALUES (1, 5, 100)
 
 SELECT 
   cs.id AS crypto_id,

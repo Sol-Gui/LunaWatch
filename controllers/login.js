@@ -25,7 +25,6 @@ async function registerUser(req, res) {
         });   
 
     } catch (err) {
-        console.log(err);
         res.status(500).send({
             error: 'Ocorreu um erro ao processar sua solicitação.',
         });
@@ -44,11 +43,12 @@ function checkToken(req, res, next) {
     try {
         const secret = process.env.SECRET;
         
-        jwt.verify(token, secret);
+        const result = jwt.verify(token, secret);
 
         res.locals.isAuthenticated = true
+        res.locals.userId = result.id
 
-        next();
+        next()
     } catch (err) {
         res.locals.isAuthenticated = false;
         next();
@@ -74,7 +74,7 @@ async function loginUser(req, res) {
                     const httpOnlyCookie = true;
                     const cookieOptions = {
                         secure: secureCookie,
-                        maxAge: 86400 * 7, // 86400 * 7 = 7 dias
+                        maxAge: 86400 * 7, // 86400 * 7 = 7 days
                         path: '/',
                         httpOnly: httpOnlyCookie,
                     };
@@ -101,5 +101,15 @@ async function loginUser(req, res) {
     }
 }
 
+async function logOut(req, res) {
+    const expiredCookie = cookie.serialize('jwtToken', '', {
+        maxAge: -1,
+        path: '/',
+    });
 
-module.exports = { registerUser, loginUser, checkToken }
+    res.setHeader('Set-Cookie', expiredCookie);
+    res.redirect('/');
+}
+
+
+module.exports = { registerUser, loginUser, checkToken, logOut }

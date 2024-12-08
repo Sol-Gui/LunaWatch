@@ -29,11 +29,6 @@ async function createUser(email, password) {
   const sql = `INSERT INTO users (email, password) VALUES (?, ?)`;
   const [result] = await db.query(sql, [email, hashpass]);
 
-  console.log({
-    email: email,
-    password: hashpass
-  })
-
   return result.insertId;
 }
 

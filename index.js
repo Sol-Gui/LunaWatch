@@ -2,7 +2,7 @@ const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const { connectToDatabase } = require('./public/js/database/database.js');
-const { Login, Solana } = require('./controllers/index.js');
+const { Login, Solana, User } = require('./controllers/index.js');
 
 
 const app = express();
@@ -28,23 +28,18 @@ app.get('/', (req, res)=>{
 });
 
 
-app.get('/login/sign-up', (req, res)=>{
+app.get('/login/sign-up', (req, res)=> {
     res.render('login', {method: 1});
 });
 
 
-app.get('/login/sign-in', (req, res)=>{
+app.get('/login/sign-in', (req, res)=> {
     res.render('login', {method: 2});
 });
 
 
-app.get('/login', (req, res)=>{
+app.get('/login', (req, res)=> {
     res.render('login', {method: 1});
-});
-
-
-app.get('/protected', (req, res) => {
-    res.send({ message: "Acesso permitido!" });
 });
 
 
@@ -54,10 +49,32 @@ app.post('/login/sign-in', Login.loginUser)
 app.post('/login/sign-up', Login.registerUser);
 
 
+app.get('/logout', Login.logOut);
+
+
 app.get(['/solana/:pg', '/solana'], Solana.tokensPage)
 
 
+app.get('/profile', User.requireValidToken, User.profilePage);
+
+
+/*
+
+IGNORAR ESTA PÁGINA CASO NÃO DE TEMPO DE FINALIZAR
+
 app.get('/solana/token/:ca', Solana.pricePage);
+*/
+
+
+app.get('/register-crypto', User.requireValidToken, async (req, res) => {
+    res.render('registerCrypto');
+})
+
+/*
+app.post('/register-crypto', (req, res) => {
+    res.render('registerCrypto');
+})
+*/
 
 
 app.get('/tradingview', (req, res) => {

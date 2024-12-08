@@ -21,9 +21,6 @@
           <li class="nav-item">
             <a class="nav-link active" aria-current="page" href="/">Home</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="/tradingview">Tradingview</a>
-          </li> 
           <% if (isAuthenticated) { %>
           <li class="nav-item">
             <a class="nav-link active" aria-current="page" href="/register-crypto">Register a new crypto</a>
@@ -50,6 +47,9 @@
           <% } else { %>
             <li class="nav-item ms-auto">
               <a class="nav-link" href="/profile" id="login-btn">Profile</a>
+            </li>
+            <li class="nav-item ms-auto">
+              <a class="nav-link" href="/logout" id="login-btn">Log Out</a>
             </li>
           <% } %>
         </ul>

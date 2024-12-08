@@ -22,12 +22,13 @@ async function getMetadata(contract_address) {
 }
 
 
-// apply decimals as parameter
-async function fetch_price_jupiter(contract_address) {
+async function fetch_price_jupiter(contract_address, token_decimals) {
     
-    let metadata = await getMetadata(contract_address)
+    if (token_decimals) {
+        let metadata = await getMetadata(contract_address)
   
-    const token_decimals = metadata.mint.decimals;
+        token_decimals = metadata.mint.decimals;
+    }
 
     const quoteResponse = await (
         await fetch(`
@@ -45,21 +46,24 @@ async function tokensPage(req, res) {
     let pg = parseInt(req.params.pg, 10);
     if (!pg || !Number.isInteger(pg) || pg <= 0) { pg = 1 };
 
-
     try {
-        let SolTokenDb = await QueryDatabase("SELECT * FROM crypto_sol ORDER BY id ASC LIMIT ? OFFSET ?;", [5, pg > 1 ? pg * 5 : pg-1]);
+        let SolTokenDb = await QueryDatabase("SELECT * FROM crypto_sol ORDER BY id ASC LIMIT ? OFFSET ?;", [5, pg > 1 ? (pg-1) * 5 : pg-1]);
 
         await Promise.all(SolTokenDb[0].map(async (token) => {
             try {
-                const priceUsd = await fetch_price_jupiter(token.ca);
+                let metadata = await getMetadata(token.ca);
+                const priceUsd = await fetch_price_jupiter(token.ca, metadata.mint.decimals);
                 token.priceUsd = priceUsd;
+                token.image = metadata.json?.image;
+                if (!token.image) {
+                    token.image = 'https://via.placeholder.com/125x125?text=Image+Not+Found'  
+                }
             } catch (err) {
                 token.priceUsd = 'error fetching the price :(';
-            }
-        }));
+        }
+    }));
     
         res.render('blockchains/solana', { Tokens: SolTokenDb[0] });
-        // USAR O CA DA DATABASE PARA PROCURAR PELOS METADADOS
     } catch (error) {
         res.status(500).send('An error occurred while fetching Solana tokens.');
     }
@@ -74,8 +78,7 @@ async function pricePage(req, res) {
 
         res.render('token_pages/token_page_sol', { token: result });
     } catch (error) {
-        console.error('Error fetching price:', error);
-        res.status(500).send('Error fetching price');
+        res.status(400).send('Error fetching price');
     }
 }
 

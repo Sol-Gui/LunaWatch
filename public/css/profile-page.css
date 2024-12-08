@@ -1,0 +1,13 @@
+body {
+  display: flex;
+  justify-content: center;
+}
+
+.main-container {
+  width: 96vw;
+  display: block;
+}
+
+.main-container div {
+  border-radius: 2em;
+}

@@ -15,10 +15,43 @@ function generate_graph() {
       timeVisible: true,
       secondsVisible: false,
     },
+    layout: {
+      background: {
+        color: '#1e1e1e',
+      },
+      textColor: '#d1d1d1',
+    },
+    grid: {
+      vertLines: {
+        color: '#2e2e2e',
+      },
+      horzLines: {
+        color: '#2e2e2e',
+      },
+    },
+    crosshair: {
+      mode: 0,
+      vertLine: {
+        color: '#4e4e4e',
+      },
+      horzLine: {
+        color: '#4e4e4e',
+      },
+    },
+    priceScale: {
+      borderColor: '#2e2e2e',
+    },
   };
 
   chart = LightweightCharts.createChart(domElement, chartProperties);
-  const candleSeries = chart.addCandlestickSeries();
+  const candleSeries = chart.addCandlestickSeries({
+    upColor: '#4fff00',
+    borderUpColor: '#4fff00',
+    wickUpColor: '#4fff00',
+    downColor: '#ff4976',
+    borderDownColor: '#ff4976',
+    wickDownColor: '#ff4976', 
+  });
 
   try {
     const cdata = portfolioChartData.map(d => ({

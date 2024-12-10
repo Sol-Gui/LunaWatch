@@ -19,6 +19,17 @@
     <% }); %>
 </div>
 
+<div class="pagination">
+    <button id="prev" onclick="changePage('prev')">Anterior</button>
+    <button id="next" onclick="changePage('next')">Próxima</button>
+</div>
 
+
+
+<script>
+    const totalPages = Math.floor( <%= ListSize %> /5)+1;
+</script>
+
+<script src="/js/solana.js" defer></script>
 
 <%- include('../partials/footer')  %>

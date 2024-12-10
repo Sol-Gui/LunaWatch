@@ -58,7 +58,7 @@ CREATE TABLE portfolio (
 );
 
 SELECT * FROM crypto_sol WHERE id = 4;
-INSERT INTO portfolio (user_id, crypto_id, quantity) VALUES (1, 1, 900000);
+INSERT INTO portfolio (user_id, crypto_id, quantity) VALUES (1, 4, 900000);
 
 SELECT 
   cs.id AS crypto_id,
@@ -74,3 +74,6 @@ ON
   p.crypto_id = cs.id
 WHERE 
   p.user_id = 1; 
+
+
+SELECT id FROM crypto_sol WHERE ca = "9d24jNVbvHQH3pCB1ZzxRjpFuVV4j1MMJDU3SPxQpump";

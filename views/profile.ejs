@@ -39,7 +39,12 @@
                 </div>
             <% }); %>
         </div>
-        <div id="add-new-coin"></div>
+        <div id="add-new-coin">
+            <form action="/profile/add-coin" method="POST" id="add-form">
+                <input type="text" placeholder="Contract address..." id="contract_address" name="contract_address" required>
+                <input type="submit" class="sign-input" class="sign-submit" id="submit-form">
+            </form>
+        </div>
     </div>
 </div>
 

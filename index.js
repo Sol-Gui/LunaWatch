@@ -24,6 +24,22 @@ app.use(Login.checkToken);
 connectToDatabase();
 
 
+app.use((err, req, res, next) => {
+    console.error('Erro capturado:', err.message);
+    res.status(500).json({ message: 'Ocorreu um erro no servidor!' });
+});
+
+process.on('uncaughtException', (err) => {
+    console.error('Exceção não capturada:', err.message);
+    // Opcional: reiniciar o servidor ou encerrar o processo
+  });
+  
+  process.on('unhandledRejection', (reason, promise) => {
+    console.error('Rejeição não tratada:', reason);
+    // Opcional: reiniciar o servidor ou encerrar o processo
+  });  
+
+
 app.get('/', (req, res)=>{
     res.render('home');
 });
@@ -63,6 +79,9 @@ app.put('/profile/edit-coin/:id/:quantity', User.requireValidToken, User.editCoi
 
 
 app.delete('/profile/remove-coin/:id', User.requireValidToken, User.removeCoin)
+
+
+app.post('/profile/add-coin', User.requireValidToken, User.addCoin)
 
 /*
 
@@ -138,7 +157,7 @@ async function processLoop() {
                 }
 
                 await QueryDatabase("UPDATE crypto_sol SET H_close = ? WHERE ca = ?", [priceToken, el.contract_address]);
-                await sleep(1200);
+                await sleep(1500);
             }
         }
 

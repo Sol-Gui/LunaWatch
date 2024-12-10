@@ -23,10 +23,9 @@ async function getMetadata(contract_address) {
 
 
 async function fetch_price_jupiter(contract_address, token_decimals) {
-    
     if (!token_decimals) {
         let metadata = await getMetadata(contract_address)
-  
+    
         token_decimals = metadata.mint.decimals;
     }
 
@@ -37,8 +36,8 @@ https://quote-api.jup.ag/v6/quote?inputMint=${contract_address}\
 &amount=${1*10**token_decimals}\
 &slippageBps=50`
         )
-      ).json();
-    
+    ).json();
+        
     if (!quoteResponse.outAmount) {
         throw new Error("price fetching price: NaN");
     }
@@ -51,6 +50,7 @@ async function tokensPage(req, res) {
 
     try {
         let SolTokenDb = await QueryDatabase("SELECT * FROM crypto_sol ORDER BY id ASC LIMIT ? OFFSET ?;", [5, pg > 1 ? (pg-1) * 5 : pg-1]);
+        let ListSize = await QueryDatabase("SELECT * FROM crypto_sol;");
 
         await Promise.all(SolTokenDb[0].map(async (token) => {
             try {
@@ -66,7 +66,7 @@ async function tokensPage(req, res) {
         }
     }));
     
-        res.render('blockchains/solana', { Tokens: SolTokenDb[0] });
+        res.render('blockchains/solana', { Tokens: SolTokenDb[0], ListSize: ListSize[0].length  });
     } catch (error) {
         res.status(500).send('An error occurred while fetching Solana tokens.');
     }

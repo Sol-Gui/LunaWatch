@@ -57,11 +57,23 @@ async function removeCoin(req, res) {
 async function editCoin(req, res) {
   try {
     await QueryDatabase("UPDATE portfolio SET quantity = ? WHERE user_id = ? AND crypto_id = ?;", [req.params.quantity, res.locals.userId, req.params.id]);
-    res.status(200).send('Coin updated :P');
+    res.status(200).send('Coin updated ;)');
   } catch (err) {
     res.status(500).send('Failed to edit coinn');
     throw err
   }
 }
 
-module.exports = { profilePage, requireValidToken, removeCoin, editCoin }
+async function addCoin(req, res) {
+  try {
+    const { contract_address } = req.body;
+    const crypto_id = await QueryDatabase("SELECT id FROM crypto_sol WHERE ca = ?", [contract_address]);
+    await QueryDatabase("INSERT INTO portfolio (user_id, crypto_id, quantity) VALUES (?, ?, ?);", [res.locals.userId, crypto_id[0][0].id, 0]);
+    res.status(200).send('Coin added');
+  } catch (err) {
+    res.status(500).send('Failed to add coin');
+    throw err
+  }
+}
+
+module.exports = { profilePage, requireValidToken, removeCoin, editCoin, addCoin }

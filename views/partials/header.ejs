@@ -39,20 +39,42 @@
           <ul class="navbar-nav ms-auto">
           <% if (!isAuthenticated) { %>
           <li class="nav-item ms-auto">
-            <a class="nav-link" href="/login/sign-in" id="login-btn">Sign in</a>
+            <a class="nav-link" href="/login/sign-in" id="sign-in-btn">Sign in</a>
           </li>
           <li class="nav-item ms-auto">
-            <a class="nav-link" href="/login/sign-up" id="login-btn">Sign up</a>
+            <a class="nav-link" href="/login/sign-up" id="sign-up-btn">Sign up</a>
           </li>
           <% } else { %>
             <li class="nav-item ms-auto">
               <a class="nav-link" href="/profile" id="login-btn">Profile</a>
             </li>
             <li class="nav-item ms-auto">
-              <a class="nav-link" href="/logout" id="login-btn">Log Out</a>
+              <a class="nav-link" href="." id="logout-btn">Log Out</a>
             </li>
           <% } %>
         </ul>
       </div>
     </div>
   </nav>
+<script>
+  document.getElementById('logout-btn').addEventListener('click', async function(event) {
+    event.preventDefault();
+
+    try {
+        const response = await fetch('/logout', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+
+        if (response.ok) {
+            window.location.href = '/';
+        } else {
+            alert('Failed to log out');
+        }
+    } catch (error) {
+        alert('An error occurred when trying to log out');
+    }
+});
+</script>

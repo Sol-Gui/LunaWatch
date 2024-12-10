@@ -1,6 +1,6 @@
 const { Connection, PublicKey } = require('@solana/web3.js');
 const fetch = require('cross-fetch');
-const { Metaplex } = require('@metaplex-foundation/js');
+const { Metaplex, token } = require('@metaplex-foundation/js');
 const { QueryDatabase } = require('../public/js/database/database.js');
 
 const USDC_DECIMALS = 6;
@@ -24,7 +24,7 @@ async function getMetadata(contract_address) {
 
 async function fetch_price_jupiter(contract_address, token_decimals) {
     
-    if (token_decimals) {
+    if (!token_decimals) {
         let metadata = await getMetadata(contract_address)
   
         token_decimals = metadata.mint.decimals;
@@ -39,6 +39,9 @@ https://quote-api.jup.ag/v6/quote?inputMint=${contract_address}\
         )
       ).json();
     
+    if (!quoteResponse.outAmount) {
+        throw new Error("price fetching price: NaN");
+    }
     return quoteResponse.outAmount/10**USDC_DECIMALS;
 }
 

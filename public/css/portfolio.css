@@ -1,5 +1,73 @@
 .portfolio-container {
-  height: 60vh;
-  background-color: blue;
+  box-sizing: border-box;
+  overflow: auto;
+  height: auto;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  background-color: rgb(86, 7, 177);
   margin-top: 5vh;
+  padding: 2em;
+  padding-top: 0;
+  margin-bottom: 5vh;
+}
+
+#portfolio-graph {
+  width: 70vw;
+  height: 50vh;
+}
+
+#portfolio-coins {
+  display: block;
+  align-items: normal;
+  height: auto;
+  color: white;
+}
+
+#coin {
+  overflow: hidden;
+  padding: 1em 2em 0 2em;
+  overflow: auto;
+  margin-top: 2.5vh;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  flex-direction: row;
+  width: 80vw;
+  height: auto;
+  background: rgba(0,0,0,0.5);
+}
+
+#name {
+  overflow: visible;
+  height: auto;
+  width: calc(10vw + 6vh);
+  font-size: calc(1vw + 0.4vh)
+}
+
+#acronym {
+  overflow: visible;
+  height: auto;
+  width: calc(10vw + 6vh);
+  opacity: 0.7;
+  font-size: calc(0.65vw + 0.3vh)
+}
+
+#last_price, #quantity, #total {margin-left: 5%; height: auto; width: calc(20vw + 12vh); font-size: calc(1vw + 0.4vh)}
+
+#buttons {
+  display: flex; 
+  flex-direction: row; 
+  justify-content: flex-start; 
+  align-items: center; 
+  width: calc(1vw + 1vh);
+  height: calc(1vw + 1vh); 
+  margin-top: 1vh;
+}
+
+#buttons img
+{  
+  width: calc(1vw + 1vh);
+  height: calc(1vw + 1vh);
+
 }

@@ -1,5 +1,33 @@
 .profile-container {
-  height: 25vh;
-  background-color: red;
-  color: blue;
+  background-color: #18091b;
+  overflow: auto;
+  padding: 1em;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  height: auto;
+  color: white;
+}
+
+.profile-container img {
+  width: 10em;
+  height: 10em;
+}
+
+#change-username img {
+  height: 0.5em;
+  width: 0.5em;
+}
+
+.text {
+  height: auto;
+  margin-left: 1em;
+}
+
+.text h1 {
+  font-size: 2em;
+}
+.text h2 {
+  color: rgb(166, 75, 226);
+  font-size: 1.2em;
 }

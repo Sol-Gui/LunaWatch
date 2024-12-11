@@ -11,8 +11,29 @@
     <div class="profile-container" id="container">
         <img width="200em" height="200em" src= <%= userData.image %> >
         <div class="text">
-            <h1> Hello, <%= userData.name %> <button id="change-username" onclick="console.log('mudar nomi')"><img src="../img/edit.png"></button> </h1>
+            <h1> Hello, <%= userData.name %></h1>
             <h2> <%= userData.email %> </h2>
+        </div>
+        <div class="profile-buttons">
+            <form id="edit-username">
+                <label class="title">EDIT USERNAME</label>
+                <input type="text" id="new-username" placeholder="Enter new username" minlength="3" required>
+                <input type="submit">
+            </form>
+            <form id="edit-password">
+                <label class="title">EDIT PASSWORD</label>
+                <label for="old-password">password:</label>
+                <input id="old-password" type="password" placeholder="Password" required minlength="6" name="password" autocomplete="new-password">
+                <label for="new-password">New password:</label>
+                <input id="new-password" type="password" placeholder="New Password" required minlength="6" name="password" autocomplete="new-password">
+                <input type="submit">
+            </form>
+            <form id="delete-account"> 
+                <label class="title">DELETE ACCOUNT</label>
+                <label for="password">password</label>
+                <input type="password" placeholder="Password" required minlength="6" name="password" autocomplete="new-password" id="password">
+                <input type="submit">
+            </form>
         </div>
     </div>
 
@@ -28,7 +49,7 @@
                     <h3 id="total"> Total: $<%= (token.quantity_owned * token.last_price).toFixed(3) %></h3>
                 </div>
 
-                <div id="buttons">
+                <div class="buttons">
                     <button id="edit-coin" data-id="<%= token.crypto_sol_id %>" onclick="openEditModal(event)">
                         <img src="../img/edit.png">
                     </button>
@@ -68,5 +89,6 @@
 </script>
 
 <script src="/js/portfolio.js"></script>
+<script src="/js/profile.js"></script>
 
 <%- include('partials/footer')  %>

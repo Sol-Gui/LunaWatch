@@ -25,9 +25,7 @@ async function registerUser(req, res) {
         });   
 
     } catch (err) {
-        res.status(500).send({
-            error: 'Ocorreu um erro ao processar sua solicitação.',
-        });
+        res.status(500).send('Ocorreu um erro ao processar sua solicitação.');
     }
 }
 
@@ -90,7 +88,7 @@ async function loginUser(req, res) {
                         message: 'Usuário logado com sucesso!',
                     });
                 } else {
-                  return res.status(401).send({ error: 'Senha Incorreta!' });
+                  return res.status(401).send('Wrong password!');
                 }
               });
               

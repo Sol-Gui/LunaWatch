@@ -26,7 +26,6 @@
 #coin {
   overflow: hidden;
   padding: 1em 2em 0 2em;
-  overflow: auto;
   margin-top: 2.5vh;
   display: flex;
   align-items: flex-start;
@@ -54,7 +53,7 @@
 
 #last_price, #quantity, #total {margin-left: 5%; height: auto; width: calc(20vw + 12vh); font-size: calc(1vw + 0.4vh)}
 
-#buttons {
+.buttons {
   display: flex; 
   flex-direction: row; 
   justify-content: flex-start; 
@@ -64,9 +63,15 @@
   margin-top: 1vh;
 }
 
-#buttons img
+.buttons img
 {  
   width: calc(1vw + 1vh);
   height: calc(1vw + 1vh);
 
+}
+
+#add-form input {
+  display: flex;
+  justify-content: center;
+  width: calc(20vw + 12vh);
 }

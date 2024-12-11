@@ -19,13 +19,8 @@ async function connectToDatabase() {
   }
 }
 
-async function hashedPassword(password) {
-  const hashpass = await bcrypt.hash(password, 10);
-  return hashpass;
-}
-
 async function createUser(email, password) {
-  const hashpass = await hashedPassword(password);
+  const hashpass = await bcrypt.hash(password, 10);
   const sql = `INSERT INTO users (email, password) VALUES (?, ?)`;
   const [result] = await db.query(sql, [email, hashpass]);
 
@@ -42,4 +37,4 @@ async function QueryDatabase(query, params) {
 }
 
 
-module.exports = { connectToDatabase, createUser, QueryDatabase, hashedPassword}
+module.exports = { connectToDatabase, createUser, QueryDatabase}

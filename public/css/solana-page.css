@@ -11,9 +11,11 @@
 }
 
 .token-container {
+  overflow: auto;
   color: white;
   background-color: rgb(33,37,41);
   width: 96vw;
+  padding: 1vh;
   margin-bottom: 2vh;
 }
 
@@ -24,7 +26,7 @@
 
 .pagination button {
   background-color: #f0f0f0;
-  border: 1em solid #ccc;
+  border: 0.2em solid #ccc;
   color: #333;
   padding: 0.5em 0.75em;
   margin: 0.5em;
@@ -35,7 +37,4 @@
 .pagination button:hover {
   background-color: #007BFF;
   color: white;
-}
-.pagination button:hover {
-  background-color: #ddd;
 }

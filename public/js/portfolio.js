@@ -109,18 +109,23 @@ function closeEditModal() {
 }
 
 document.getElementById('edit-coin-form').addEventListener('submit', async function(event) {
-  event.preventDefault();
+  try {
+    event.preventDefault();
 
-  const updatedQuantity = document.getElementById('crypto-quantity').value.replace(',', '.');
-  const id = document.getElementById('crypto-id').value;
+    const updatedQuantity = document.getElementById('crypto-quantity').value.replace(',', '.');
+    const id = document.getElementById('crypto-id').value;
 
-  const response = await fetch(`/profile/edit-coin/${id}/${updatedQuantity}`, {
-    method: 'PUT',
-    headers: {
-        'Content-Type': 'application/json',
-    },
-  })
-  if (response.ok) {
-    closeEditModal();
+    const response = await fetch(`/profile/edit-coin`, {
+      method: 'PUT',
+      headers: {
+          'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ updatedQuantity, id })
+    })
+    if (response.ok) {
+      closeEditModal();
+    }
+  } catch (err) {
+    throw err;
   }
 });

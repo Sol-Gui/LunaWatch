@@ -27,6 +27,9 @@ async function fetch_price_jupiter(contract_address, token_decimals) {
         let metadata = await getMetadata(contract_address)
     
         token_decimals = metadata.mint.decimals;
+        if (token_decimals) {
+            await QueryDatabase("UPDATE crypto_sol SET decimals = ? WHERE ca = ?", [token_decimals, contract_address])
+        }
     }
 
     const quoteResponse = await (

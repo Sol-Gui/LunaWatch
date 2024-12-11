@@ -3,8 +3,6 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const { connectToDatabase, QueryDatabase } = require('./public/js/database/database.js');
 const { Login, Solana, User } = require('./controllers/index.js');
-const router = express.Router();
-
 
 const app = express();
 const port = 80;
@@ -75,7 +73,7 @@ app.get(['/solana/:pg', '/solana'], Solana.tokensPage)
 app.get('/profile', User.requireValidToken, User.profilePage);
 
 
-app.put('/profile/edit-coin/:id/:quantity', User.requireValidToken, User.editCoin)
+app.put('/profile/edit-coin', User.requireValidToken, User.editCoin)
 
 
 app.delete('/profile/remove-coin/:id', User.requireValidToken, User.removeCoin)
@@ -83,12 +81,17 @@ app.delete('/profile/remove-coin/:id', User.requireValidToken, User.removeCoin)
 
 app.post('/profile/add-coin', User.requireValidToken, User.addCoin)
 
-/*
 
-IGNORAR ESTA PÁGINA CASO NÃO DE TEMPO DE FINALIZAR
+app.put('/profile/edit-password', User.requireValidToken, User.editPassword)
+
+
+app.delete('/profile/delete-account', User.requireValidToken, User.deleteAccount)
+
+
+app.put('/profile/change-username', User.requireValidToken, User.changeUsername)
+
 
 app.get('/solana/token/:ca', Solana.pricePage);
-*/
 
 
 app.get('/register-crypto', User.requireValidToken, async (req, res) => {
@@ -125,13 +128,14 @@ function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
+let editList = [10,20,30,40,50,0]
 let n = 0
 async function processLoop() {
     try {
         const timestamp = Date.now() - (3 * 60 * 60 * 1000);
         const now = new Date();
 
-        if (![15,30,45,0].includes(now.getMinutes())) {n = 0}
+        if (!editList.includes(now.getMinutes())) {n = 0}
 
         if ([5,10,15,20,25,30,35,40,45,50,55,0].includes(now.getMinutes())) {
             const len = await QueryDatabase("SELECT ca AS contract_address, decimals, id FROM crypto_sol");
@@ -161,7 +165,7 @@ async function processLoop() {
             }
         }
 
-        if ([15,30,45,0].includes(now.getMinutes())) {
+        if (editList.includes(now.getMinutes())) {
             n = 1
             if (n == 1) {
                 const id = await QueryDatabase("SELECT id FROM users");

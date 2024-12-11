@@ -1,4 +1,5 @@
-const jwt = require('jsonwebtoken');
+const cookie = require('cookie');
+const bcrypt = require('bcrypt');
 const { QueryDatabase } = require('../public/js/database/database.js');
 
 async function requireValidToken(req, res, next) {
@@ -56,8 +57,18 @@ async function removeCoin(req, res) {
 
 async function editCoin(req, res) {
   try {
-    await QueryDatabase("UPDATE portfolio SET quantity = ? WHERE user_id = ? AND crypto_id = ?;", [req.params.quantity, res.locals.userId, req.params.id]);
-    res.status(200).send('Coin updated ;)');
+    let { updatedQuantity, id } = req.body;
+    updatedQuantity = parseFloat(updatedQuantity)
+
+    if (!isNaN(updatedQuantity) && updatedQuantity >= 0 && id) {
+      await QueryDatabase("UPDATE portfolio SET quantity = ? WHERE user_id = ? AND crypto_id = ?;", [updatedQuantity, res.locals.userId, id]);
+      res.status(200).send('Coin updated ;)');
+
+    } else if (updatedQuantity >= 0 && !isNaN(updatedQuantity)) {
+      res.status(400).send('Invalid id format');
+    } else {
+      res.status(400).send('Invalid Quantity');
+    }
   } catch (err) {
     res.status(500).send('Failed to edit coinn');
     throw err
@@ -69,11 +80,87 @@ async function addCoin(req, res) {
     const { contract_address } = req.body;
     const crypto_id = await QueryDatabase("SELECT id FROM crypto_sol WHERE ca = ?", [contract_address]);
     await QueryDatabase("INSERT INTO portfolio (user_id, crypto_id, quantity) VALUES (?, ?, ?);", [res.locals.userId, crypto_id[0][0].id, 0]);
-    res.status(200).send('Coin added');
+    res.redirect('/profile')
   } catch (err) {
     res.status(500).send('Failed to add coin');
     throw err
   }
 }
 
-module.exports = { profilePage, requireValidToken, removeCoin, editCoin, addCoin }
+
+async function editPassword(req, res) {
+  try {
+    const pass = await QueryDatabase('SELECT password FROM users WHERE id = ?', [res.locals.userId]);
+    let { oldPassword, newPassword } = req.body
+    bcrypt.compare(oldPassword, pass[0][0].password, async function(err, result) {
+      if (err) {
+        throw err;
+      }
+
+      if (result) {
+        newPassword = await bcrypt.hash(newPassword, 10)
+        await QueryDatabase("UPDATE users SET password = ? WHERE id = ?", [newPassword, res.locals.userId]);
+
+        res.status(200).send('Password changed with no issues!');
+
+      } else {
+        return res.status(401).send('Wrong password!');
+      }
+    })
+  } catch (err) {
+    res.status(500).send('Failed to edit password')
+    throw err
+  }
+}
+
+async function deleteAccount(req, res) {
+  try {
+    const pass = await QueryDatabase('SELECT password FROM users WHERE id = ?', [res.locals.userId]);
+    const { password } = req.body
+    bcrypt.compare(password, pass[0][0].password, async function(err, result) {
+      if (err) {
+        throw err;
+      }
+
+      if (result) {
+        await QueryDatabase("DELETE FROM users WHERE id = ?", [res.locals.userId]);
+        const expiredCookie = cookie.serialize('jwtToken', '', {
+          maxAge: -1,
+          path: '/',
+        });
+  
+        res.setHeader('Set-Cookie', expiredCookie);
+
+        res.status(200).send('Account deleted!');
+
+      } else {
+        return res.status(401).send('Wrong password!');
+      }
+    })
+  } catch (err) {
+    res.status(500).send('Failed to delete account')
+    throw err
+  }
+}
+
+async function changeUsername(req, res) {
+  try {
+    const { newUsername } = req.body
+    if (newUsername.length >= 3 && newUsername.length <= 12) {
+      await QueryDatabase("UPDATE users SET name = ? WHERE id = ?", [newUsername, res.locals.userId])
+      res.status(200).send('Username changed with success!');
+    } else if (newUsername.length < 3) {
+      res.status(401).send('new username length is too short!');
+    } else {
+      res.status(401).send('new username length is too long!');
+    }
+
+
+  } catch (err) {
+    res.status(500).send('Failed to change username');
+    throw err;
+  }
+}
+
+
+module.exports = { profilePage, requireValidToken, removeCoin, editCoin, addCoin, editPassword, deleteAccount, changeUsername }

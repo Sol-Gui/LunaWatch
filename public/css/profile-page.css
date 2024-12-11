@@ -9,7 +9,7 @@ body {
   border-radius: 1vw;
 }
 
-button {
+.buttons button {
   background-color: transparent;
   color: transparent;
   border: none;

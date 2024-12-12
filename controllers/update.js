@@ -60,17 +60,21 @@ async function processLoop() {
                   
                   for (const el of len[0]) {
                       const chartData = await QueryDatabase("SELECT H_open, H_high, H_low, H_close FROM crypto_sol WHERE ca = ?", [el.contract_address]);
-                      const existOpen = await QueryDatabase("SELECT open FROM portfolio_chart WHERE user_id = ? ORDER BY chart_id DESC LIMIT 1", [id_u.id]);        
+                      try {
+                        const existOpen = await QueryDatabase("SELECT open FROM portfolio_chart WHERE user_id = ? ORDER BY chart_id DESC LIMIT 1", [id_u.id]);        
 
-                      if (!existOpen[0][0].open) {
-                        open += parseFloat((chartData[0][0]?.H_open * el.quantity_owned).toFixed(5))
-                      } else {
-                        const lastClose = await QueryDatabase("SELECT close FROM portfolio_chart WHERE user_id = ? ORDER BY chart_id DESC LIMIT 1", [id_u.id])
-                        open = lastClose[0][0].close
+                        if (!existOpen[0][0].open) {
+                            open += parseFloat((chartData[0][0]?.H_open * el.quantity_owned).toFixed(5))
+                        } else {
+                            const lastClose = await QueryDatabase("SELECT close FROM portfolio_chart WHERE user_id = ? ORDER BY chart_id DESC LIMIT 1", [id_u.id])
+                            open = lastClose[0][0].close
+                        }
+                      } catch (err) {
+                        open += parseFloat((chartData[0][0]?.H_open * el.quantity_owned).toFixed(5));
                       }
-                      high += parseFloat((chartData[0][0]?.H_high * el.quantity_owned).toFixed(5))
-                      low += parseFloat((chartData[0][0]?.H_low * el.quantity_owned).toFixed(5))
-                      close += parseFloat((chartData[0][0]?.H_close * el.quantity_owned).toFixed(5))
+                      high += parseFloat((chartData[0][0]?.H_high * el.quantity_owned).toFixed(5));
+                      low += parseFloat((chartData[0][0]?.H_low * el.quantity_owned).toFixed(5));
+                      close += parseFloat((chartData[0][0]?.H_close * el.quantity_owned).toFixed(5));
                       const isOpen = await QueryDatabase("SELECT H_open FROM crypto_sol WHERE ca = ?", [el.contract_address]);
                       if (isOpen[0][0]?.H_open) {
                           await QueryDatabase("UPDATE crypto_sol SET H_open = ? WHERE ca = ?", [0, el.contract_address]);

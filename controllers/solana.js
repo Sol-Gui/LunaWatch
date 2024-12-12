@@ -69,12 +69,35 @@ async function tokensPage(req, res) {
         }
     }));
     
-        res.render('blockchains/solana', { Tokens: SolTokenDb[0], ListSize: ListSize[0].length  });
+        res.render('blockchains/solana', { Tokens: SolTokenDb[0], ListSize: ListSize[0].length, pg  });
     } catch (error) {
         res.status(500).send('An error occurred while fetching Solana tokens.');
     }
 }
 
+async function addNewCoinManual(req, res) {
+    const { contract_address, name, acronym, decimals } = req.body;
+    try {
+        await QueryDatabase(`INSERT INTO crypto_sol (ca, name, acronym, decimals)
+            VALUES (?, ?, ?, ?)`, [contract_address, name, acronym, decimals]);
+        res.redirect('/')
+    } catch (error) {
+        res.status(500).send('An error occurred while adding the coin');
+    }
+}
+
+async function addNewCoinAutomatic(req, res) {
+    const { contract_address } = req.body;
+    try {
+        const token = await getMetadata(contract_address)
+        await QueryDatabase(`INSERT INTO crypto_sol (ca, name, acronym, decimals)
+            VALUES (?, ?, ?, ?)`, [contract_address, token.name, token.symbol, token.mint.decimals]);
+        res.redirect('/')
+
+    } catch (error) {
+        res.status(500).send('An error occurred while adding the coin');
+    }
+}
 
 async function pricePage(req, res) {
     let ca = req.params.ca;
@@ -88,4 +111,4 @@ async function pricePage(req, res) {
     }
 }
 
-module.exports = { fetch_price_jupiter, pricePage, getMetadata, tokensPage }
+module.exports = { fetch_price_jupiter, pricePage, getMetadata, tokensPage, addNewCoinManual, addNewCoinAutomatic }

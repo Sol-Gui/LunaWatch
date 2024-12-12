@@ -10,24 +10,28 @@
 <div class="container">
     <% Tokens.forEach(function(token) { %>
         <div class="token-container">
-            <h1><%= token.acronym %></h1>
+            <h1><%= token.acronym %></a>
             <h2><%= token.name %></h2>
             <h3><%= token.priceUsd %></h3>
             <h5><%= token.ca %></h5>
-            <img width="100em" height="100em" src=<%= token.image %> >
+            <img class="responsive-image" src="<%= token.image %>" alt="Token Image">
+            <button id="especificTokenPage" onclick="
+            window.location.href = '/solana/token/<%= token.ca %>';
+            ">Go to specific token page</button>
         </div>
     <% }); %>
 </div>
 
 <div class="pagination">
-    <button id="prev" onclick="changePage('prev')">Anterior</button>
-    <button id="next" onclick="changePage('next')">Próxima</button>
+    <button id="prev" onclick="changePage('prev')">Previous</button>
+    <button id="next" onclick="changePage('next')">Next</button>
 </div>
 
 
 
 <script>
     const totalPages = Math.floor( <%= ListSize %> /5)+1;
+    let currentPage = <%= pg %>
 </script>
 
 <script src="/js/solana.js" defer></script>

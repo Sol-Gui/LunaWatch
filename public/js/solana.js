@@ -1,5 +1,4 @@
-let currentPage = 1;
-
+console.log(currentPage)
 function changePage(page) {
   if (page === 'prev' && currentPage > 1) {
     currentPage--;

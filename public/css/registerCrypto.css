@@ -1,0 +1,62 @@
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100vh;
+}
+
+#sol-form-title {
+  font-family: Verdana;
+  font-size: calc(1vw + 2vh);
+  color: rgb(0, 255, 106);
+}
+
+#title {
+  display: flex;
+  justify-content: center;
+  font-size: 3em;
+}
+
+#add-new-coin {
+  width: auto;
+  height: auto;
+}
+
+.new-sol-form {
+  padding: 2vh;
+  box-sizing: border-box;
+  border-radius: calc(1.5vw + 0.75vh);
+  background-color: #4c00ffc9;
+  overflow: auto;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  width: 50vw;
+  height: 40vh;
+  margin-bottom: 10vh;
+}
+  
+.new-sol-form input {
+  border: none; 
+  color: black;
+  background-color: rgb(255, 255, 255);
+  border-radius: calc(3vw + 2vh);
+  height: 20%;
+  width: 70%;
+  margin-bottom: 1%;
+}
+
+#new-sol-form-automatic {
+  padding-bottom: 1vh;
+  height: 25vh;
+}
+
+@media only screen 
+and (max-width : 426px) {
+  .new-sol-form input {
+    width: 90%;
+  }
+  .new-sol-form {
+    width: 80vw;
+  }
+}

@@ -84,7 +84,6 @@ and (min-width : 1224px) {
     height: 2.5em;
     width: 25em;
     margin-bottom: 2em;
-    border-radius: 2em;
   }
   
   .sign-input {
@@ -276,5 +275,5 @@ and (max-width : 1223px) {
 
   #blue-div {
     color: wheat;
-  }
+  } 
 }

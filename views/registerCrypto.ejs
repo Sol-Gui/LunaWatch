@@ -1,12 +1,26 @@
-<%- include('partials/header')  %>
+ <%- include('partials/header')  %>
 
 <head>
-    <link rel='stylesheet' type='text/css' href='/css/home.css'>
+    <link rel='stylesheet' type='text/css' href='/css/registerCrypto.css'>
 </head>
 
-<div id="blockchains">SOMETHING LIKE SOLANA, APTOS, ETC...</div>
-<h1>Home</h1>
 
+<h1 id="title">Add a new coin by contract address</h1>
+
+<div id="add-new-coin">
+    <form action="/register-crypto/manual" method="POST" id="new-sol-form-manual" class="new-sol-form">
+        <label id="sol-form-title">Register a new SOLANA token (manual)</label>
+        <input type="text" placeholder="Contract address..." class="contract_address" name="contract_address" required>
+        <input type="text" placeholder="name..." class="name" name="name" required>
+        <input type="text" placeholder="Symbol..." class="acronym" name="acronym" required>
+        <input type="number" placeholder="Decimals..." class="decimals" name="decimals" required>
+        <input type="submit" class="submit-form">
+    </form>
+    <form action="/register-crypto/automatic" method="POST" id="new-sol-form-automatic" class="new-sol-form">
+        <label id="sol-form-title">Register a new SOLANA token (automatic)</label>
+        <input type="text" placeholder="Contract address..." class="contract_address" name="contract_address" required>
+        <input type="submit" class="submit-form">
+    </form>
 </div>
 
 
